@@ -6,6 +6,7 @@
 
 /* version 1.7.1: 2016/09/06 */
 
+#ifdef KINECT
 #pragma once
 
 #if defined(USE_THREAD)
@@ -1245,3 +1246,5 @@ class NtKinect {
     return cv::Rect(minX,minY,maxX-minX,maxY-minY);
   }
 };
+
+#endif // KINECT

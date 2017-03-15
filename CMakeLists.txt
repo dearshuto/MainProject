@@ -8,6 +8,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/lib)
 
+include_directories(/usr/local/Cellar/opencv3/3.2.0/include/)
+link_directories(/usr/local/Cellar/opencv3/3.2.0/lib/)
 
 # インクルードフォルダを相対パスの検索対象に設定する
 IF(WIN32)
@@ -38,8 +40,18 @@ foreach(FILE ${ALL_FILES})
 endforeach()
 
 # C++11を有効にする
-add_definitions("-Wall -std=c++11")
+add_definitions("-Wall -std=c++14")
 add_executable(light_art
 	${ALL_FILES}
 	${IMGUI_SOURCES}
+)
+
+target_link_libraries(light_art
+	opencv_core
+	opencv_highgui
+	opencv_imgcodecs
+	opencv_imgproc
+	opencv_video
+	opencv_videoio
+	
 )
