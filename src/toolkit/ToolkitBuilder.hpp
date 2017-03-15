@@ -12,6 +12,7 @@
 #include <memory>
 
 namespace mmk {
+    class ContourLineExtractionAlgorithm;
     class ImageBuilder;
     class VideoCapture;
     class ToolkitBuilder;
@@ -24,6 +25,7 @@ protected:
 public:
     virtual~ToolkitBuilder() = default;
     
+    virtual std::unique_ptr<mmk::ContourLineExtractionAlgorithm> buildContourExtractionAlgorithm()const = 0;
     virtual std::unique_ptr<mmk::VideoCapture> buildVideoCapture()const = 0;
     virtual std::unique_ptr<mmk::ImageBuilder> buildImageBuilder()const = 0;
 };

@@ -10,13 +10,15 @@
 #include "LightArtSystem.hpp"
 #include "AfterImageEffect.hpp"
 
-mmk::AfterImageEffect::AfterImageEffect(std::unique_ptr<mmk::EffectComponent> effect)
+mmk::AfterImageEffect::AfterImageEffect(std::unique_ptr<mmk::EffectComponent> effect, const std::uint32_t bufferSize)
 : Super(std::move(effect))
 {
+    m_previousFrames.resize(bufferSize);
+    
     auto& imageBuilder = mmk::LightArtSystem::GetInstance()->getImageBuilder();
     for (auto& previousFrame: m_previousFrames)
     {
-        previousFrame = imageBuilder.createInstance(640, 480);
+        previousFrame = imageBuilder.createInstance();
     }
 }
 
@@ -24,10 +26,19 @@ void mmk::AfterImageEffect::execute(const mmk::Image &input, mmk::Image *const o
 {
     // まずSuperのエフェクトをかける
     getSuperEffectPtr()->execute(input, output);
+
+
+    const float kFrom = 0.2f, kTo = 0.0f;
+    const float kReduceDuration = (kFrom - kTo) / m_previousFrames.size();
+    const std::uint32_t kBufferSize = static_cast<std::uint32_t>(m_previousFrames.size());
     
-    output->blend(*m_previousFrames[(m_index+0)%3], 0.3);
-    output->blend(*m_previousFrames[(m_index+1)%3], 0.2);
-    output->blend(*m_previousFrames[(m_index+2)%3], 0.1);
+    for (int i = 0; i < kBufferSize; ++i)
+    {
+        const float kAlpha = kFrom - float(i)*kReduceDuration;
+        const std::uint32_t kIndex = (m_index+i) % kBufferSize;
+        
+        output->blend(*m_previousFrames[kIndex], kAlpha);
+    }
     
-    output->copyTo(m_previousFrames[(++m_index)%3].get());
+    output->copyTo(m_previousFrames[(++m_index)%kBufferSize].get());
 }

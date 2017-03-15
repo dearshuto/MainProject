@@ -9,7 +9,13 @@
 #include "OpenCVImage.hpp"
 #include "OpenCVImageBuilder.hpp"
 
-std::unique_ptr<mmk::Image> mmk::OpenCVImageBuilder::createInstance(const std::uint32_t width, const std::uint32_t height)const
+mmk::OpenCVImageBuilder::OpenCVImageBuilder(const std::uint32_t width, const std::uint32_t height)
+: Super(width, height)
 {
-    return std::make_unique<mmk::OpenCVImage>(width, height);
+    
+}
+
+std::unique_ptr<mmk::Image> mmk::OpenCVImageBuilder::createInstance()const
+{
+    return std::make_unique<mmk::OpenCVImage>(getWidth(), getHeight());
 }

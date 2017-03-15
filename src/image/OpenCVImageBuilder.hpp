@@ -17,11 +17,13 @@ namespace mmk {
 
 class mmk::OpenCVImageBuilder : public mmk::ImageBuilder
 {
+    typedef mmk::ImageBuilder Super;
 public:
-    OpenCVImageBuilder() = default;
+    OpenCVImageBuilder() = delete;
+    OpenCVImageBuilder(const std::uint32_t width = 640, const std::uint32_t height = 480);
     ~OpenCVImageBuilder() = default;
     
-    std::unique_ptr<mmk::Image> createInstance(const std::uint32_t width, const std::uint32_t height)const override;
+    std::unique_ptr<mmk::Image> createInstance()const override;
 };
 
 #endif /* OpenCVImageBuilder_hpp */

@@ -21,6 +21,7 @@ public:
     OpenCVToolkitBuilder() = default;
     ~OpenCVToolkitBuilder() = default;
     
+    std::unique_ptr<mmk::ContourLineExtractionAlgorithm> buildContourExtractionAlgorithm()const override;
     std::unique_ptr<mmk::VideoCapture> buildVideoCapture()const override;
     std::unique_ptr<mmk::ImageBuilder> buildImageBuilder()const override;
 };
