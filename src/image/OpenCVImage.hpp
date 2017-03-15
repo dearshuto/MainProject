@@ -24,6 +24,7 @@ public:
     OpenCVImage(const cv::Mat& mat);
     ~OpenCVImage() = default;
     
+    void blend(const mmk::Image& other, const float alpha, const float selfAlpha = 1.0)override;
     void clear()override;
     void copyTo(mmk::Image*const image)const override;
     void show()const override;

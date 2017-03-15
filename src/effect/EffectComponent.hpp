@@ -14,6 +14,7 @@ namespace mmk {
     class EffectComponent;
 }
 
+/// ペンライトアート風のエッフェクトをデコレータパターンで実行するためのコンポーネント
 class mmk::EffectComponent
 {
 protected:

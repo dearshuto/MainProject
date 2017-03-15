@@ -18,6 +18,7 @@ namespace mmk {
     class AfterImageEffect;
 }
 
+/// 残像効果
 class mmk::AfterImageEffect : public mmk::EffectDecorator
 {
     typedef mmk::EffectDecorator Super;

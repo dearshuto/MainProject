@@ -29,32 +29,11 @@ bool mmk::LightArtSystem::initialize()
     
     auto contourLineExtraction = std::make_unique<mmk::CVContourLineExtractionAlgorithm>();
     auto withAfterImag = std::make_unique<mmk::AfterImageEffect>(std::move(contourLineExtraction));
-    
     m_effect = std::move(withAfterImag);
     
     m_videoCapture.reset(new mmk::OpenCVVideoCapture);
     result &= m_videoCapture->initialize();
     
-    
-//    /*	écëúÇ†ÇËversion */
-//    //1âÒñ⁄ÇÕdotÇ©ÇÁénÇﬂÇƒÅA2âÒñ⁄à»ç~ÇÕeffectÇ©ÇØÇΩresultÇ™ÇŸÇµÇ¢ÇÃÇ≈ÅAeffectÇ©ÇÁénÇﬂÇÈ
-//    if (afterimg_array.size() == 0){
-//        //                doDot(depth.contourImage, result_img);
-//        //1ñáñ⁄ÇñæÇÈÇ≥â∫Ç∞ÇƒarrayÇ…ï€ë∂
-//        addAfterImg(result_img, afterimg_array);
-//    }
-//    else {
-//        //arrayÇ…ì¸Ç¡ÇƒÇ¢ÇÈâÊëúÇorââéZéqÇ≈Ç¬Ç»Ç∞ÇƒîwåiÇ…Ç∑ÇÈ
-//        for (int i = 0; i < afterimg_array.size(); i++){
-//            bitwise_or(result_img, afterimg_array.at(i), result_img);
-//        }
-//        
-//        //è„Ç≈ìæÇÁÇÍÇΩresult_imgÇîwåiÇ…ÇµÇƒê¸Çè„èëÇ´Ç∑ÇÈ
-//        //                doDot(depth.contourImage, result_img);
-//        //Ç±ÇÃéûÇÃê¸ÇarrayÇ…í«â¡Ç∑ÇÈ
-//        addAfterImg(result_img, afterimg_array);
-//    }
-
     return result;
 }
 

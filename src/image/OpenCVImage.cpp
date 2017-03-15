@@ -20,6 +20,12 @@ mmk::OpenCVImage::OpenCVImage(const cv::Mat& mat)
     
 }
 
+void mmk::OpenCVImage::blend(const mmk::Image &other, const float alpha, const float selfAlpha)
+{
+    const mmk::OpenCVImage& cvOther = static_cast<const mmk::OpenCVImage&>(other);
+    cv::addWeighted(*this, selfAlpha, cvOther, alpha, 0.0f/*gamma*/, *this);
+}
+
 void mmk::OpenCVImage::clear()
 {
     cv::Mat::operator=(cv::Scalar(0));

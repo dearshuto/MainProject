@@ -16,6 +16,7 @@ namespace mmk {
     class EffectDecorator;
 }
 
+/// デコレートするエフェクト
 class mmk::EffectDecorator : public mmk::EffectComponent
 {
 public:
