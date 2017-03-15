@@ -6,34 +6,30 @@
 //
 //
 
-#include "LightArtSystem.hpp"
-#include <iostream>
-#include <sstream>
-#include <time.h>
-#include "Depth.h"
-#include "Dot.h"
-#include "NeonDesign.h"
-#include "Log.h"
-#include "CatmullSpline.h"
-#include "NtKinect.h"
 #include "algorithm/CVContourLineExtractionAlgorithm.hpp"
-#include "image/OpenCVImage.hpp"
 #include "effect/EffectComponent.hpp"
 #include "effect/AfterImageEffect.hpp"
+#include "image/ImageBuilder.hpp"
+#include "image/OpenCVImage.hpp"
+#include "toolkit/OpenCVToolkitBuilder.hpp"
 #include "ui/OpenCVVideoCapture.hpp"
+#include "LightArtSystem.hpp"
 
 
 bool mmk::LightArtSystem::initialize()
 {
     bool result = true;
     
+    std::unique_ptr<mmk::ToolkitBuilder> toolkitBuilder(new mmk::OpenCVToolkitBuilder);
+    m_imageBuilder = toolkitBuilder->buildImageBuilder();
+    m_videoCapture = toolkitBuilder->buildVideoCapture();
+    
+    result &= m_videoCapture->initialize();
+    
     auto contourLineExtraction = std::make_unique<mmk::CVContourLineExtractionAlgorithm>();
     auto withAfterImag = std::make_unique<mmk::AfterImageEffect>(std::move(contourLineExtraction));
     m_effect = std::move(withAfterImag);
-    
-    m_videoCapture.reset(new mmk::OpenCVVideoCapture);
-    result &= m_videoCapture->initialize();
-    
+
     return result;
 }
 
@@ -48,26 +44,31 @@ void mmk::LightArtSystem::mainloop()
 
 void mmk::LightArtSystem::runWithKinect()
 {
-    
+    // Not Supported
 }
 
 void mmk::LightArtSystem::runWithoutKinect()
 {
-    mmk::OpenCVImage input{640, 480};
-    mmk::OpenCVImage output{640, 480};
+    std::unique_ptr<mmk::Image> input = getImageBuilder().createInstance(640, 480);
+    std::unique_ptr<mmk::Image> output = getImageBuilder().createInstance(640, 480);
     
     while(1)
     {
-        output.clear();
-        getVideoCapturePtr()->capture(&input);
-        m_effect->execute(input, &output);
-        output.show();
+        output->clear();
+        getVideoCapturePtr()->capture(input.get());
+        m_effect->execute(*input, output.get());
+        output->show();
     }
 }
 
 void mmk::LightArtSystem::terminate()
 {
     
+}
+
+const mmk::ImageBuilder& mmk::LightArtSystem::getImageBuilder()const
+{
+    return *m_imageBuilder;
 }
 
 mmk::VideoCapture*const mmk::LightArtSystem::getVideoCapturePtr()
