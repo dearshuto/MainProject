@@ -24,6 +24,10 @@ void mmk::AfterImageEffect::execute(const mmk::Image &input, mmk::Image *const o
 {
     // まずSuperのエフェクトをかける
     getSuperEffectPtr()->execute(input, output);
+
+    const float kFrom = 0.25f, kTo = 0.0f;
+    const float kReduceDuration = (kFrom - kTo) / m_previousFrames.size();
+    const std::uint32_t kBufferSize = static_cast<std::uint32_t>(m_previousFrames.size());
     
     output->blend(*m_previousFrames[(m_index+0)%3], 0.3);
     output->blend(*m_previousFrames[(m_index+1)%3], 0.2);
