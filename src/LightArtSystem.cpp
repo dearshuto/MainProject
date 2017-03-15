@@ -52,12 +52,14 @@ void mmk::LightArtSystem::runWithoutKinect()
     std::unique_ptr<mmk::Image> input = getImageBuilder().createInstance(640, 480);
     std::unique_ptr<mmk::Image> output = getImageBuilder().createInstance(640, 480);
     
+    int frame = 0;
     while(1)
     {
         output->clear();
         getVideoCapturePtr()->capture(input.get());
         m_effect->execute(*input, output.get());
         output->show();
+//        output->saveToFile(std::to_string(frame++) + ".png");
     }
 }
 

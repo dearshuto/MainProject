@@ -10,6 +10,7 @@
 #define Image_h
 
 #include <cstdint>
+#include <string>
 
 namespace mmk {
     class Image;
@@ -33,6 +34,8 @@ public:
     
     /// ウィンドウに表示する
     virtual void show()const = 0;
+    
+    virtual bool saveToFile(const std::string& fileName)const = 0;
     
     virtual std::uint32_t getWidth()const = 0;
     virtual std::uint32_t getHeight()const = 0;

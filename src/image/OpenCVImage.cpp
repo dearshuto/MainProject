@@ -45,6 +45,11 @@ void mmk::OpenCVImage::show()const
     cv::waitKey(1000/10);
 }
 
+bool mmk::OpenCVImage::saveToFile(const std::string& fileName)const
+{
+    return cv::imwrite(fileName, *this);
+}
+
 std::uint32_t mmk::OpenCVImage::getWidth()const
 {
     return static_cast<std::uint32_t>(this->cols);
