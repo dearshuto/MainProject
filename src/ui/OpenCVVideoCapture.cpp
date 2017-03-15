@@ -22,7 +22,10 @@ bool mmk::OpenCVVideoCapture::initialize()
 void mmk::OpenCVVideoCapture::capture(mmk::Image *image)
 {
     mmk::OpenCVImage* cvImage = static_cast<mmk::OpenCVImage*>(image);
-    *getVideoCapturePtr() >> *cvImage;
+
+    do{
+        *getVideoCapturePtr() >> *cvImage;
+    }while(cvImage->empty());
 }
 
 cv::VideoCapture*const mmk::OpenCVVideoCapture::getVideoCapturePtr()
