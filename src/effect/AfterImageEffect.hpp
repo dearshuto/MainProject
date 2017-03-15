@@ -9,6 +9,8 @@
 #ifndef AfterImageEffect_hpp
 #define AfterImageEffect_hpp
 
+#include <array>
+#include <cstdint>
 #include <memory>
 #include "EffectDecorator.hpp"
 
@@ -27,7 +29,8 @@ public:
     void execute(const mmk::Image& input, mmk::Image*const output)override;
     
 private:
-    std::unique_ptr<mmk::Image> m_previousFrame;
+    std::array<std::unique_ptr<mmk::Image>, 3> m_previousFrames;
+    std::uint8_t m_index = 0;
 };
 
 #endif /* AfterImageEffect_hpp */
