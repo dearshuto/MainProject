@@ -34,8 +34,9 @@ void mmk::OpenCVImage::copyTo(mmk::Image *const image)const
 
 void mmk::OpenCVImage::show()const
 {
+    cv::flip(*this, *this, 1);
     cv::imshow("", *this);
-    cv::waitKey(20);
+    cv::waitKey(1000/10);
 }
 
 std::uint32_t mmk::OpenCVImage::getWidth()const
