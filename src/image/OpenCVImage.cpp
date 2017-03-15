@@ -9,7 +9,7 @@
 #include "OpenCVImage.hpp"
 
 mmk::OpenCVImage::OpenCVImage(const std::uint32_t width, const std::uint32_t height)
-: cv::Mat(cv::Mat::zeros(cv::Size(width, height), CV_8UC1))
+: cv::Mat(cv::Mat::zeros(cv::Size(width, height), CV_8UC3))
 {
     
 }
@@ -23,6 +23,13 @@ mmk::OpenCVImage::OpenCVImage(const cv::Mat& mat)
 void mmk::OpenCVImage::clear()
 {
     cv::Mat::operator=(cv::Scalar(0));
+}
+
+void mmk::OpenCVImage::copyTo(mmk::Image *const image)const
+{
+    mmk::OpenCVImage*const cvImage = static_cast<mmk::OpenCVImage*const>(image);
+    
+    (*cvImage) = this->clone();
 }
 
 void mmk::OpenCVImage::show()const

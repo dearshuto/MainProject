@@ -19,6 +19,7 @@
 #include "algorithm/CVContourLineExtractionAlgorithm.hpp"
 #include "image/OpenCVImage.hpp"
 #include "effect/EffectComponent.hpp"
+#include "effect/AfterImageEffect.hpp"
 #include "ui/OpenCVVideoCapture.hpp"
 
 
@@ -26,9 +27,12 @@ bool mmk::LightArtSystem::initialize()
 {
     bool result = true;
     
-    m_videoCapture.reset(new mmk::OpenCVVideoCapture);
-    m_contourLineExtractionAlgorithm.reset(new mmk::CVContourLineExtractionAlgorithm);
+    auto contourLineExtraction = std::make_unique<mmk::CVContourLineExtractionAlgorithm>();
+    auto withAfterImag = std::make_unique<mmk::AfterImageEffect>(std::move(contourLineExtraction));
     
+    m_effect = std::move(withAfterImag);
+    
+    m_videoCapture.reset(new mmk::OpenCVVideoCapture);
     result &= m_videoCapture->initialize();
     
     
@@ -70,26 +74,21 @@ void mmk::LightArtSystem::runWithKinect()
 
 void mmk::LightArtSystem::runWithoutKinect()
 {
-    mmk::OpenCVImage image{640, 480};
-    mmk::OpenCVImage contour{640, 480};
+    mmk::OpenCVImage input{640, 480};
+    mmk::OpenCVImage output{640, 480};
     
     while(1)
     {
-        contour.clear();
-        getVideoCapturePtr()->capture(&image);
-        getContourLineExtractionAlgorithm().extract(image, &contour);
-        contour.show();
+        output.clear();
+        getVideoCapturePtr()->capture(&input);
+        m_effect->execute(input, &output);
+        output.show();
     }
 }
 
 void mmk::LightArtSystem::terminate()
 {
     
-}
-
-const mmk::ContourLineExtractionAlgorithm& mmk::LightArtSystem::getContourLineExtractionAlgorithm()const
-{
-    return *m_contourLineExtractionAlgorithm;
 }
 
 mmk::VideoCapture*const mmk::LightArtSystem::getVideoCapturePtr()

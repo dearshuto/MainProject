@@ -23,6 +23,7 @@ public:
     ~Image() = default;
     
     virtual void clear() = 0;
+    virtual void copyTo(mmk::Image*const image)const = 0;
     virtual void show()const = 0;
     virtual std::uint32_t getWidth()const = 0;
     virtual std::uint32_t getHeight()const = 0;

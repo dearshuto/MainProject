@@ -25,6 +25,7 @@ public:
     ~OpenCVImage() = default;
     
     void clear()override;
+    void copyTo(mmk::Image*const image)const override;
     void show()const override;
     std::uint32_t getWidth()const override;
     std::uint32_t getHeight()const override;

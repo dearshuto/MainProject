@@ -22,7 +22,7 @@ public:
     CVContourLineExtractionAlgorithm() = default;
     ~CVContourLineExtractionAlgorithm() = default;
     
-    void extract(const mmk::Image& input, mmk::Image*const output)const override;
+    void execute(const mmk::Image& input, mmk::Image*const output)override;
 };
 
 #endif /* CVContourLineExtractionAlgorithm_hpp */

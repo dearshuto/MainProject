@@ -44,15 +44,12 @@ private:
     
     const mmk::ContourLineExtractionAlgorithm& getContourLineExtractionAlgorithm()const;
     
-    const mmk::EffectComponent& getEffectComponent()const;
-    
     mmk::VideoCapture*const getVideoCapturePtr();
+    
 private:
-    std::unique_ptr<mmk::ContourLineExtractionAlgorithm> m_contourLineExtractionAlgorithm;
+    std::unique_ptr<mmk::EffectComponent> m_effect;;
     
     std::unique_ptr<mmk::VideoCapture> m_videoCapture;
-    
-    std::unique_ptr<mmk::EffectComponent> m_effectComponent;
 };
 
 #endif /* LightArtSystem_hpp */

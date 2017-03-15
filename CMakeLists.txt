@@ -40,7 +40,7 @@ foreach(FILE ${ALL_FILES})
 endforeach()
 
 # C++11を有効にする
-add_definitions("-Wall -std=c++11")
+add_definitions("-Wall -std=c++14")
 add_executable(light_art
 	${ALL_FILES}
 	${IMGUI_SOURCES}
