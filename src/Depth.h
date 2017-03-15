@@ -1,10 +1,12 @@
 ﻿#pragma once
 #include <iostream>
 #include <sstream>
+
+#ifdef KINECT
 #include <Kinect.h>
-#include <opencv2/opencv.hpp>
-#include <atlbase.h>
 #include "NtKinect.h"
+
+#include <opencv2/opencv.hpp>
 
 
 #ifdef USE_AUDIO
@@ -67,3 +69,5 @@ public:
 
 	}
 };
+
+#endif //KINECT

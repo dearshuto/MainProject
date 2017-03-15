@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <sstream>
-#include <Windows.h>
 #include <time.h>
 #include "NeonDesign.h"
 
@@ -38,7 +37,7 @@ public:
 		}
 	}
 
-	boolean check8(cv::Mat& srcImg, int y, int x) {
+	bool check8(cv::Mat& srcImg, int y, int x) {
 		int n[8][2] = { { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 } };
 		int count = 0;
 		for (int i = 0; i < 8; i++) {
