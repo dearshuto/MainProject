@@ -12,6 +12,7 @@
 #include <memory>
 #include "algorithm/ContourLineExtractionAlgorithm.h"
 #include "effect/EffectComponent.hpp"
+#include "image/ImageBuilder.hpp"
 #include "ui/VideoCapture.hpp"
 
 namespace mmk {
@@ -38,6 +39,8 @@ public:
     
     void terminate();
     
+    const mmk::ImageBuilder& getImageBuilder()const;
+    
 private:
     void runWithKinect();
     
@@ -48,6 +51,8 @@ private:
     mmk::VideoCapture*const getVideoCapturePtr();
     
 private:
+    std::unique_ptr<mmk::ImageBuilder> m_imageBuilder;
+    
     std::unique_ptr<mmk::EffectComponent> m_effect;;
     
     std::unique_ptr<mmk::VideoCapture> m_videoCapture;
