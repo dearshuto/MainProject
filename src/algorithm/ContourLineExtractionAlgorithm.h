@@ -16,6 +16,7 @@ namespace mmk {
     class ContourLineExtractionAlgorithm;
 }
 
+/// 輪郭線を抽出するための抽象クラス
 class mmk::ContourLineExtractionAlgorithm : public mmk::EffectComponent
 {
 protected:

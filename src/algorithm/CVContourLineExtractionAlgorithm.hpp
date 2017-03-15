@@ -16,6 +16,7 @@ namespace mmk {
     class CVContourLineExtractionAlgorithm;
 }
 
+/// OpenCV を用いた輪郭線抽出アルゴリズム
 class mmk::CVContourLineExtractionAlgorithm : public mmk::ContourLineExtractionAlgorithm
 {
 public:

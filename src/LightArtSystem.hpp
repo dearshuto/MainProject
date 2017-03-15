@@ -18,6 +18,7 @@ namespace mmk {
     class LightArtSystem;
 }
 
+/// ペンライトアート風システム
 class mmk::LightArtSystem
 {
 private:

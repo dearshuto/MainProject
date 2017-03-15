@@ -22,6 +22,7 @@ protected:
 public:
     ~Image() = default;
     
+    virtual void blend(const mmk::Image& other, const float alpha, const float selfAlpha = 1.0) = 0;
     virtual void clear() = 0;
     virtual void copyTo(mmk::Image*const image)const = 0;
     virtual void show()const = 0;
